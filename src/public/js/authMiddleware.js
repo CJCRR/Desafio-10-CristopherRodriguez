@@ -4,7 +4,7 @@ const adminEmail = config.adminEmail;
 const adminPassword = config.adminPassword;
 
 const isAuthenticated = (req, res, next) => {
-    if (req.session.user) {
+    if (req.isAuthenticated()) {
         next();
     } else {
         res.redirect('/login');
@@ -12,7 +12,7 @@ const isAuthenticated = (req, res, next) => {
 };
 
 const isAdmin = (req, res, next) => {
-    if (req.session.user && req.session.user.role === 'admin') {
+    if (req.isAuthenticated() && req.session.user.role === 'admin') {
         next();
     } else {
         res.status(403).json({ message: 'Acceso no autorizado.' });

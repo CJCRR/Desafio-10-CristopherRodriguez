@@ -3,6 +3,7 @@ import productsModel from '../dao/models/products.model.js';
 import User from '../dao/models/user.model.js';
 import { __dirname } from "../utils.js";
 import ticketModel from '../dao/models/ticket.model.js'
+import { ProductService } from '../services/index.js';
 
 export const readCartsController = async (req, res) => {
     try {
@@ -59,7 +60,8 @@ export const addProductCartController = async (req, res) => {
         const userId = req.session.user._id;
         const user = await User.findById(userId);
         
-        const product = await productsModel.findById(productId).lean().exec();
+        //const product = await productsModel.findById(productId).lean().exec();
+        const product = await ProductService.getById(productId)
     
         if (!product) {
           res.status(404).json({ error: 'Producto no encontrado' });
@@ -213,17 +215,17 @@ export const purchaseCartController = async (req, res) => {
       return;
     }
 
-    let totalAmount = 0; // Monto total de la compra
-    const purchasedProducts = []; // Productos que se han comprado
+    let totalAmount = 0; 
+    const purchasedProducts = []; 
 
     // Filtrar los productos que se pueden comprar y actualizar el monto total
     const unprocessedProducts = cart.products.filter(item => {
       const product = item.product;
 
       if (product.stock >= item.quantity) {
-        product.stock -= item.quantity; // Actualizar stock del producto
-        totalAmount += product.price * item.quantity; // Actualizar monto total
-        purchasedProducts.push(item); // Agregar a los productos comprados
+        product.stock -= item.quantity; 
+        totalAmount += product.price * item.quantity; 
+        purchasedProducts.push(item); 
         return false; // Producto comprado y procesado
       }
 

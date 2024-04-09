@@ -9,6 +9,7 @@ export const viewsUserRegisterController = (req, res) => {
 
 export const viewsUserLoginController = (req, res) => {
     if (req.session.user) {
+        // Si el usuario ya está autenticado, redireccionar al perfil
         res.redirect('/profile');
     } else {
         res.render('login');
@@ -24,7 +25,6 @@ export const viewsUserProfileController = (req, res) => {
         age: req.session.user.age,
         cart: req.session.user.cart,
     };
-    //console.log(userInfo);
     res.render('profile', userInfo);
 }
 
