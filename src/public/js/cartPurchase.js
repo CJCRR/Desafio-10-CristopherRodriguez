@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Después de mostrar los resultados, enviar el correo electrónico
                     const mailUser = purchaseBtn.getAttribute('data-mail-user');
-                    const sendMailResponse = await fetch('/sendMailPurchase/send', {
+                    const sendMailResponse = await fetch('/api/email/send', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

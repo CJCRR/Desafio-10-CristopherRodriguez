@@ -10,7 +10,7 @@ const connectToDB = () => {
         mongoose.connect(URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-          })
+        })
         console.log('Base de datos ecommerce conectada')
     } catch (error) {
         console.log(error);

@@ -68,7 +68,7 @@ app.use('/', viewsUserRouter);
 app.use('/api/sessions', sessionsRouter);
 app.use('/api/products', routerProducts);
 app.use('/api/carts', routerCarts);
-app.use('/sendMailPurchase', mailPurchaseRouter);
+app.use('/api/email', mailPurchaseRouter);
 app.use('/mockingproducts', mockingRouter);
 
 app.use((req, res) => {
